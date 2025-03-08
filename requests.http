@@ -21,3 +21,13 @@ Content-Type: application/json
   "email": "test26@mail.com",
   "password": "123456"
 }
+
+
+### Test Short URL Generation #
+POST http://localhost:3000/urlSubmit
+Content-Type: application/json
+
+{
+  "userId": "67cc76cd58254ee5f489d29f",
+  "longUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1024px-Node.js_logo.svg.png"
+}
