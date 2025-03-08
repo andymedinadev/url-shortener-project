@@ -1,5 +1,5 @@
 const express = require('express')
-const shortid = require('shortid')
+const shortid = require('../utils/customShortId')
 const UrlSubmissionModel = require('../model/url.model')
 
 const router = express.Router()
@@ -8,18 +8,24 @@ router.post('/urlSubmit', async (req, res) => {
   const { userId, longUrl } = req.body
 
   try {
-    const randomSlug = shortid.generate()
+    let randomSlug
+    let existingUrl
 
-    const shortUrl = `http:localhost:3000/${randomSlug}`
+    do {
+      randomSlug = shortid.generate()
+      existingUrl = await UrlSubmissionModel.findOne({ shortUrl: `http://localhost:3000/${randomSlug}` })
+    } while (existingUrl)
+
+    const shortUrl = `http://localhost:3000/${randomSlug}`
 
     const urlSubmit = new UrlSubmissionModel({ userId, longUrl, shortUrl })
 
     await urlSubmit.save()
 
-    res.json({ status: true, message: 'Short url created succesfully', shortUrl })
+    res.json({ status: true, message: 'Short URL created successfully', shortUrl })
   } catch (error) {
     console.error(error)
-    res.json({ status: false, message: 'Something went wrong' })
+    res.status(500).json({ status: false, message: 'Something went wrong' })
   }
 })
 
