@@ -7,6 +7,10 @@ const router = express.Router()
 router.post('/urlSubmit', async (req, res) => {
   const { userId, longUrl } = req.body
 
+  if (!userId || !longUrl) {
+    return res.status(400).json({ status: false, message: 'userId and longUrl are required' })
+  }
+
   try {
     let randomSlug
     let existingUrl
@@ -26,6 +30,23 @@ router.post('/urlSubmit', async (req, res) => {
   } catch (error) {
     console.error(error)
     res.status(500).json({ status: false, message: 'Something went wrong' })
+  }
+})
+
+router.get('/:slug', async (req, res) => {
+  const { slug } = req.params
+
+  try {
+    const urlData = await UrlSubmissionModel.findOne({ slug })
+
+    if (urlData) {
+      res.redirect(urlData.longUrl)
+    } else {
+      res.status(404).json({ status: false, message: 'Invalid short URL' })
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ status: false, message: 'Error retrieving data from the database' })
   }
 })
 
