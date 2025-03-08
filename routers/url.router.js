@@ -13,12 +13,12 @@ router.post('/urlSubmit', async (req, res) => {
 
     do {
       randomSlug = shortid.generate()
-      existingUrl = await UrlSubmissionModel.findOne({ shortUrl: `http://localhost:3000/${randomSlug}` })
+      existingUrl = await UrlSubmissionModel.findOne({ slug: randomSlug })
     } while (existingUrl)
 
     const shortUrl = `http://localhost:3000/${randomSlug}`
 
-    const urlSubmit = new UrlSubmissionModel({ userId, longUrl, shortUrl })
+    const urlSubmit = new UrlSubmissionModel({ userId, longUrl, shortUrl, slug: randomSlug })
 
     await urlSubmit.save()
 
