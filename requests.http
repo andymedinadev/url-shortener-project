@@ -24,7 +24,7 @@ Content-Type: application/json
 
 
 ### Test Short URL Generation #
-POST http://localhost:3000/urlSubmit
+POST http://localhost:3000/submitUrl
 Content-Type: application/json
 
 {
