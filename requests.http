@@ -1,33 +1,70 @@
-### Test Server #
-GET http://localhost:3000/
+### APP USAGE
 
-
-### Test User Registration #
+### User Registration #
 POST http://localhost:3000/userRegistration
 Content-Type: application/json
 
 {
-  "name": "Test26",
-  "email": "test26@mail.com",
+  "name": "hashed",
+  "email": "hashed@mail.com",
   "password": "123456"
 }
 
-
-### Test User Login #
+### User Login #
 POST http://localhost:3000/userLogin
 Content-Type: application/json
 
 {
-  "email": "test26@mail.com",
+  "email": "hashed@mail.com",
   "password": "123456"
 }
 
-
-### Test Short URL Generation #
+### Short URL Generation #
 POST http://localhost:3000/submitUrl
 Content-Type: application/json
 
 {
-  "userId": "67cc76cd58254ee5f489d29f",
+  "userId": "687bd29dafe71711f7b0be6a",
   "longUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1024px-Node.js_logo.svg.png"
 }
+
+
+
+### TESTING
+
+### Test Server #
+GET http://localhost:3000/
+
+
+### Test Already Registered User #
+POST http://localhost:3000/userRegistration
+Content-Type: application/json
+
+{
+  "name": "hashed",
+  "email": "hashed@mail.com",
+  "password": "123456"
+}
+
+
+### Test Login Wrong Email #
+POST http://localhost:3000/userLogin
+Content-Type: application/json
+
+{
+  "email": "wrong@mail.com",
+  "password": "123456"
+}
+
+### Test Login Wrong Password #
+POST http://localhost:3000/userLogin
+Content-Type: application/json
+
+{
+  "email": "hashed@mail.com",
+  "password": "wrong"
+}
+
+
+### Test Invalid Short URL
+GET http://localhost:3000/wrong
