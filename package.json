@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch ./index.js"
+    "dev": "node --watch ./index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -17,9 +19,7 @@
     "mongoose": "^8.8.4"
   },
   "devDependencies": {
-    "standard": "^17.1.2"
-  },
-  "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+    "eslint": "9.31.0",
+    "neostandard": "0.12.2"
   }
 }
