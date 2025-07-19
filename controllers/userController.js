@@ -11,9 +11,19 @@ exports.userRegistration = async (req, res) => {
 
       await createUser.save()
 
-      res.json({ status: true, message: 'User created successfully' })
+      res.json({
+        success: true,
+        message: 'User created successfully',
+        data: null,
+        errors: null,
+      })
     } else {
-      res.json({ status: false, message: 'This user already exists' })
+      res.json({
+        success: false,
+        message: 'This user already exists',
+        data: null,
+        errors: null,
+      })
     }
   } catch (error) {
     console.error(error)
@@ -27,9 +37,19 @@ exports.userLogin = async (req, res) => {
     const user = await UserModel.findOne({ email, password })
 
     if (user) {
-      res.json({ status: true, message: 'Logged in!', user })
+      res.json({
+        success: true,
+        message: 'Logged in!',
+        data: { user },
+        errors: null,
+      })
     } else {
-      res.json({ status: false, message: 'User invalid, please try again' })
+      res.json({
+        success: false,
+        message: 'User invalid, please try again',
+        data: null,
+        errors: null,
+      })
     }
   } catch (error) {
     console.error(error)

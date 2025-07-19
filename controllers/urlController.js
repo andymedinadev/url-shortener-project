@@ -7,7 +7,12 @@ exports.submitUrl = async (req, res) => {
   if (!userId || !longUrl) {
     return res
       .status(400)
-      .json({ status: false, message: 'userId and longUrl are required' })
+      .json({
+        success: false,
+        message: 'userId and longUrl are required',
+        data: null,
+        errors: null,
+      })
   }
 
   try {
@@ -31,13 +36,19 @@ exports.submitUrl = async (req, res) => {
     await urlSubmit.save()
 
     res.json({
-      status: true,
+      success: true,
       message: 'Short URL created successfully',
-      shortUrl,
+      data: { shortUrl },
+      errors: null,
     })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ status: false, message: 'Something went wrong' })
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      data: null,
+      errors: null,
+    })
   }
 }
 
@@ -50,13 +61,20 @@ exports.getUrl = async (req, res) => {
     if (urlData) {
       res.redirect(urlData.longUrl)
     } else {
-      res.status(404).json({ status: false, message: 'Invalid short URL' })
+      res.status(404).json({
+        success: false,
+        message: 'Invalid short URL',
+        data: null,
+        errors: null,
+      })
     }
   } catch (error) {
     console.error(error)
     res.status(500).json({
-      status: false,
+      success: false,
       message: 'Error retrieving data from the database',
+      data: null,
+      errors: null,
     })
   }
 }
